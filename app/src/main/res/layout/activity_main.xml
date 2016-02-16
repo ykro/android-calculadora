@@ -7,11 +7,91 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.galileo.android.androidbasics.MainActivity">
+    tools:context="edu.galileo.android.tipcalc.MainActivity">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="@string/main.hint.bill"
+        android:ems="10"
+        android:id="@+id/inputBill"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main.button.submit"
+        android:id="@+id/btnSubmit"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/inputBill"
+        android:layout_toEndOf="@+id/inputBill" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberSigned"
+        android:hint="@string/main.hint.percentage"
+        android:ems="10"
+        android:id="@+id/inputPercentage"
+        android:layout_alignBottom="@+id/btnIncrease"
+        android:layout_toStartOf="@+id/btnIncrease"
+        android:layout_toLeftOf="@+id/btnIncrease" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main.button.increase"
+        android:id="@+id/btnIncrease"
+        android:layout_below="@+id/btnSubmit"
+        android:layout_alignLeft="@+id/btnSubmit"
+        android:layout_alignStart="@+id/btnSubmit" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main.button.decrease"
+        android:id="@+id/button"
+        android:layout_alignTop="@+id/btnIncrease"
+        android:layout_toRightOf="@+id/btnIncrease"
+        android:layout_toEndOf="@+id/btnIncrease" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main.button.clear"
+        android:id="@+id/btnClear"
+        android:layout_below="@+id/inputPercentage"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/separator"
+        android:layout_below="@+id/btnClear"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/txtTip"
+        android:layout_below="@+id/separator"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/txtTip" />
 
 </RelativeLayout>

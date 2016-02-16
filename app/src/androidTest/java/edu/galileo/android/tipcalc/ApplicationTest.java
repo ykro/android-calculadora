@@ -1,4 +1,4 @@
-package edu.galileo.android.androidbasics;
+package edu.galileo.android.tipcalc;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

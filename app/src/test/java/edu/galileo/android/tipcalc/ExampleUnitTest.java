@@ -1,4 +1,4 @@
-package edu.galileo.android.androidbasics;
+package edu.galileo.android.tipcalc;
 
 import org.junit.Test;
 

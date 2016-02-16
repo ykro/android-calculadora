@@ -1,4 +1,4 @@
-package edu.galileo.android.androidbasics;
+package edu.galileo.android.tipcalc;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
