@@ -1,4 +1,4 @@
-package edu.galileo.android.tipcalc;
+package edu.galileo.android.tipcalc.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,18 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import edu.galileo.android.tipcalc.R;
+import edu.galileo.android.tipcalc.model.TipRecord;
 
 /**
  * Created by ykro on 11/15/14.
  */
 public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder>  {
-    private String[] dataset;
+    private List<TipRecord> dataset;
     private OnItemClickListener clickListener;
 
-    public CustomRecyclerAdapter(String[] dataset) {
-        this.dataset = dataset;
+    public CustomRecyclerAdapter() {
+        this.dataset = new ArrayList<TipRecord>();
     }
 
     public void setOnItemClickListener(OnItemClickListener clickListener) {
@@ -27,15 +32,15 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
     @Override
     public CustomRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row, parent, false);
+                .inflate(R.layout.item_row, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String element = dataset[position];
-        holder.txtContent.setText(element);
+        TipRecord element = dataset.get(position);
+        holder.txtContent.setText(Double.toString(element.getTip()));
         if (this.clickListener != null) {
             holder.setOnItemClickListener(element, this.clickListener);
         }
@@ -43,7 +48,12 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
 
     @Override
     public int getItemCount() {
-        return dataset.length;
+        return dataset.size();
+    }
+
+    public void addElement(TipRecord element){
+        dataset.add(0, element);
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -56,7 +66,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
             ButterKnife.bind(this, view);
         }
 
-        public void setOnItemClickListener(final String element,
+        public void setOnItemClickListener(final TipRecord element,
                                             final OnItemClickListener listener) {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

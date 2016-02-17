@@ -6,4 +6,6 @@
     <string name="main.button.increase">+</string>
     <string name="main.button.decrease">-</string>
     <string name="main.button.clear">Borrar recientes</string>
+    <string name="main.notice.clear">Elementos recientes ha quedado vacío</string>
+    <string name="main.menu.action.about">Acerca de</string>
 </resources>
