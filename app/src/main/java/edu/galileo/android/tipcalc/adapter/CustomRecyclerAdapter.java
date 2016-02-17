@@ -56,6 +56,11 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        dataset.clear();
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         @Bind(R.id.txtContent) TextView txtContent;

@@ -1,14 +1,15 @@
 package edu.galileo.android.tipcalc.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * Created by ykro.
  */
 public class TipRecord {
-    Date timestamp;
     double bill;
-    double tipPercentage;
+    Date timestamp;
+    int tipPercentage;
 
     public Date getTimestamp() {
         return timestamp;
@@ -26,15 +27,20 @@ public class TipRecord {
         this.bill = bill;
     }
 
-    public double getTipPercentage() {
+    public int getTipPercentage() {
         return tipPercentage;
     }
 
-    public void setTipPercentage(double tipPercentage) {
+    public void setTipPercentage(int tipPercentage) {
         this.tipPercentage = tipPercentage;
     }
 
     public double getTip() {
-        return bill*tipPercentage;
+        return bill*(tipPercentage/100d);
+    }
+
+    public String getDateFormatted(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd,yyyy HH:mm");
+        return simpleDateFormat.format(timestamp);
     }
 }

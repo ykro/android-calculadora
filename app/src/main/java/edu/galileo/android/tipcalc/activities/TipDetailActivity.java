@@ -18,6 +18,10 @@ public class TipDetailActivity extends AppCompatActivity {
     @Bind(R.id.txtTimestamp)
     TextView txtTimestamp;
 
+    public final static String TIP_KEY = "tip";
+    public final static String DATE_KEY = "timestamp";
+    public final static String BILL_TOTAL_KEY = "total";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +30,8 @@ public class TipDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        txtBillTotal.setText(intent.getStringExtra(MainActivity.BILL_TOTAL_KEY));
-        txtTip.setText(intent.getStringExtra(MainActivity.TIP_KEY));
-        txtTimestamp.setText(intent.getStringExtra(MainActivity.TIMESTAMP_KEY));
+        txtBillTotal.setText(String.valueOf(intent.getDoubleExtra(BILL_TOTAL_KEY, 0d)));
+        txtTip.setText(String.valueOf(intent.getDoubleExtra(TIP_KEY, 0d)));
+        txtTimestamp.setText(intent.getStringExtra(DATE_KEY));
     }
 }

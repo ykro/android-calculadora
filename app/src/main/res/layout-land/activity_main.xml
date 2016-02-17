@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+
         android:id="@+id/txtTip"
         android:layout_below="@+id/btnClear"
         android:layout_alignParentLeft="true"
@@ -84,6 +84,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/fragmentList"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:name="edu.galileo.android.tipcalc.fragments.TipHistoryListFragment"
         tools:layout="@layout/fragment_tip_history_list"

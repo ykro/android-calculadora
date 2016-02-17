@@ -1,5 +1,6 @@
 package edu.galileo.android.tipcalc.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,19 +8,23 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.galileo.android.tipcalc.R;
 import edu.galileo.android.tipcalc.TipCalcApp;
-import edu.galileo.android.tipcalc.adapter.OnItemClickListener;
+import edu.galileo.android.tipcalc.fragments.TipHistoryListFragment;
+import edu.galileo.android.tipcalc.fragments.TipHistoryListFragmentListener;
 import edu.galileo.android.tipcalc.model.TipRecord;
 
-public class MainActivity extends AppCompatActivity implements OnItemClickListener {
+public class MainActivity extends AppCompatActivity {
     @Bind(R.id.inputBill)
     EditText inputBill;
     @Bind(R.id.inputPercentage)
@@ -29,16 +34,19 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     @Bind(R.id.container)
     RelativeLayout container;
 
-    public final static String TIMESTAMP_KEY = "timestamp";
-    public final static String BILL_TOTAL_KEY = "total";
-    public final static String TIP_KEY = "tip";
-    private final static String DEFAULT_TIP_PERCENTAGE = "10";
+    private final static int TIP_STEP_CHANGE = 1;
+    private final static int DEFAULT_TIP_PERCENTAGE = 10;
+    private TipHistoryListFragmentListener fragmentListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        TipHistoryListFragment fragment = (TipHistoryListFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentList);
+        fragment.setRetainInstance(true);
+        fragmentListener = (TipHistoryListFragmentListener)fragment;
     }
 
     @Override
@@ -61,50 +69,61 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
     @OnClick(R.id.btnSubmit)
     public void handleClickSubmit(){
-        String strInputTotal = inputBill.getText().toString();
+        hideKeyboard();
+        String strInputTotal = inputBill.getText().toString().trim();
         if (!strInputTotal.isEmpty()) {
-            try {
+            double total = Double.parseDouble(strInputTotal);
+            int tipPercentage = getTipPercentage();
+            TipRecord tipRecord = new TipRecord();
+            tipRecord.setBill(total);
+            tipRecord.setTipPercentage(tipPercentage);
+            tipRecord.setTimestamp(new Date());
 
-            } catch (ClassCastException e) {
+            fragmentListener.addToList(tipRecord);
 
-            }
+            String strTip = String.format(getString(R.string.main_message_tip),
+                                          tipRecord.getTip());
+            txtTip.setText(strTip);
+
         }
     }
 
     @OnClick(R.id.btnIncrease)
     public void handleClickIncrease(){
+        hideKeyboard();
+        handleTipChange(TIP_STEP_CHANGE);
     }
 
     @OnClick(R.id.btnDecrease)
     public void handleClickDecrease(){
-
+        hideKeyboard();
+        handleTipChange(-TIP_STEP_CHANGE);
     }
 
-    private void handleTipChange(){
-        String strInputPercentage = inputPercentage.getText().toString();
+    private void handleTipChange(int change){
+        int tipPercentage = getTipPercentage();
+        tipPercentage += change;
+        inputPercentage.setText(String.valueOf(tipPercentage));
+    }
+
+    private int getTipPercentage(){
+        int tipPercentage;
+        String strInputPercentage = inputPercentage.getText().toString().trim();
         if (!strInputPercentage.isEmpty()) {
-            try {
-
-            } catch (ClassCastException e) {
-
-            }
+            tipPercentage = Integer.parseInt(strInputPercentage);
         } else {
-            txtTip.setText(DEFAULT_TIP_PERCENTAGE);
+            tipPercentage = DEFAULT_TIP_PERCENTAGE;
+            inputPercentage.setText(String.valueOf(tipPercentage));
         }
+
+        return tipPercentage;
     }
 
     @OnClick(R.id.btnClear)
     public void handleClickClear(){
+        hideKeyboard();
+        fragmentListener.clearList();
         showMessage(R.string.main_notice_clear);
-    }
-
-    @Override
-    public void onItemClick(TipRecord element) {
-        Intent i = new Intent(this, TipDetailActivity.class);
-        i.putExtra(TIMESTAMP_KEY, "");
-        i.putExtra(BILL_TOTAL_KEY, element.getBill());
-        i.putExtra(TIP_KEY, element.getTip());
-        startActivity(i);
     }
 
     private void about(){
@@ -115,11 +134,16 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         startActivity(i);
     }
 
-    private void showMessage(String msg) {
-        Snackbar.make(container, msg, Snackbar.LENGTH_SHORT).show();
-    }
-
     private void showMessage(int stringRes) {
         Snackbar.make(container, stringRes, Snackbar.LENGTH_SHORT).show();
+    }
+
+
+    private void hideKeyboard(){
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }
