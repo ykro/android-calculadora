@@ -40,7 +40,9 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         TipRecord element = dataset.get(position);
-        holder.txtContent.setText(Double.toString(element.getTip()));
+        String strTip = String.format("Propina %,.1f",
+                                      element.getTip());
+        holder.txtContent.setText(strTip);
         if (this.clickListener != null) {
             holder.setOnItemClickListener(element, this.clickListener);
         }

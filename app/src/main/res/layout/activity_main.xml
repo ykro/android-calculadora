@@ -85,6 +85,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/txtTip"
         android:layout_below="@+id/separator"
+        android:visibility="gone"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

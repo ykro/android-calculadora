@@ -30,8 +30,14 @@ public class TipDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        txtBillTotal.setText(String.valueOf(intent.getDoubleExtra(BILL_TOTAL_KEY, 0d)));
-        txtTip.setText(String.valueOf(intent.getDoubleExtra(TIP_KEY, 0d)));
+        String strTotal = String.format(getString(R.string.detail_message_bill),
+                                        intent.getDoubleExtra(BILL_TOTAL_KEY, 0d));
+
+        String strTip = String.format(getString(R.string.global_message_tip),
+                                      intent.getDoubleExtra(TIP_KEY, 0d));
+
+        txtBillTotal.setText(strTotal);
+        txtTip.setText(strTip);
         txtTimestamp.setText(intent.getStringExtra(DATE_KEY));
     }
 }

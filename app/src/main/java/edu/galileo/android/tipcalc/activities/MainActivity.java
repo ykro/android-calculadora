@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -81,10 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
             fragmentListener.addToList(tipRecord);
 
-            String strTip = String.format(getString(R.string.main_message_tip),
+            String strTip = String.format(getString(R.string.global_message_tip),
                                           tipRecord.getTip());
-            txtTip.setText(strTip);
 
+            txtTip.setVisibility(View.VISIBLE);
+            txtTip.setText(strTip);
         }
     }
 
