@@ -7,9 +7,9 @@ import java.util.Date;
  * Created by ykro.
  */
 public class TipRecord {
-    double bill;
-    Date timestamp;
-    int tipPercentage;
+    private double bill;
+    private Date timestamp;
+    private int tipPercentage;
 
     public Date getTimestamp() {
         return timestamp;
