@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     public void handleClickClear(){
         hideKeyboard();
         fragmentListener.clearList();
-        showMessage(R.string.main_notice_clear);
+        Snackbar.make(container, R.string.main_notice_clear, Snackbar.LENGTH_SHORT).show();
     }
 
     private void about(){
@@ -135,11 +135,6 @@ public class MainActivity extends AppCompatActivity {
         i.setData(Uri.parse(strUrl));
         startActivity(i);
     }
-
-    private void showMessage(int stringRes) {
-        Snackbar.make(container, stringRes, Snackbar.LENGTH_SHORT).show();
-    }
-
 
     private void hideKeyboard(){
         InputMethodManager inputManager = (InputMethodManager)
